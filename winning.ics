@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:Thomassawesomeicalcreator
+BEGIN:VEVENT
+UID:WedAug2820:00:162019@thomassawesomeicalcreator.com
+DTSTAMP;TZID=Europe/Amsterdam:20190828T200016Z
+DTSTART;TZID=Europe/Amsterdam:20190829T160000Z
+DTEND;TZID=Europe/Amsterdam:20190829T170000Z
+SUMMARY:winning
+LOCATION:somewhere where winnning is done
+DESCRIPTION:winning again
+END:VEVENT
+END:VCALENDAR
