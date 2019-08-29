@@ -93,13 +93,23 @@ int main ( ){
 		
 		string begindate, enddate;
 		//get the begindate
+	begindatelabel:
 		cout<<"When will the event begin? (yyyymmdd:hhmm)"<<endl;
 		cin>>begindate;
+		if (begindate.size()<13){
+			cout<<"date is too small\n";
+			goto begindatelabel;
+		}
 		file<<"DTSTART:"<<getDTSTART(begindate)<<"\r\n";
 		
 		//get the end date
+	enddatelabel:
 		cout<<"When will the event end? (yyyymmdd:hhmm)"<<endl;
 		cin>>enddate;
+		if (begindate.size()<13){
+			cout<<"date is too small\n";
+			goto enddatelabel;
+		}
 		file<<"DTEND:"<<getDTSTART(enddate)<<"\r\n";
 		
 		//get the name of the event
@@ -143,6 +153,6 @@ int main ( ){
 	}
 	
 	file<<"END:VCALENDAR";	
-	
+	file.close();
 	return 0;
 }
