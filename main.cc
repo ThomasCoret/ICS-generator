@@ -4,18 +4,15 @@
 #include <ctime>
 
 using namespace std;
-//creates a DTSTART out of the given date (also works for DTEND)
+//creates a DTSTART out of the given date (also works for DTEND) 
+//input = yyyymmdd:hhmm
 string getDTSTART( string input ){
 	string newstring = "";
 	//assuming nobody will be using this after year 9999
-	newstring+=input.substr(0,4);
-	newstring+=input.substr(5,2);
-	newstring+=input.substr(8,2);
+	newstring+=input.substr(0,8);
 	newstring += 'T';
-	newstring+=input.substr(11,2);
-	newstring+=input.substr(14,2);
+	newstring+=input.substr(9,4);
 	newstring += "00";
-	//newstring += 'Z';
 	return newstring;
 }
 
@@ -44,7 +41,6 @@ string getDTSTAMP ( tm* input ){
 		newstring += '0';
 	}
 	newstring += to_string(input->tm_sec);
-	//newstring += 'Z';
 	return newstring;
 }
 
@@ -97,12 +93,12 @@ int main ( ){
 		
 		string begindate, enddate;
 		//get the begindate
-		cout<<"When will the event begin? (yyyy-mm-dd:hh-mm)"<<endl;
+		cout<<"When will the event begin? (yyyymmdd:hhmm)"<<endl;
 		cin>>begindate;
 		file<<"DTSTART:"<<getDTSTART(begindate)<<"\r\n";
 		
 		//get the end date
-		cout<<"When will the event end? (yyyy-mm-dd:hh-mm)"<<endl;
+		cout<<"When will the event end? (yyyymmdd:hhmm)"<<endl;
 		cin>>enddate;
 		file<<"DTEND:"<<getDTSTART(enddate)<<"\r\n";
 		
