@@ -4,9 +4,77 @@
 using namespace std;
 
 char getyn(){
-	char answer;
-	cin>>answer;
-	return answer;
+	string answer;
+	getline(cin, answer);
+	return answer[0];
+}
+
+bool stringtoint(string input, int &output){
+	bool number = false;
+	for(int i = 0; i<input.size();i++){
+		if(!isdigit(input[i]))
+			return false;
+		if(isdigit(input[i]))
+			number = true;
+	}
+	if(number)
+		output = stoi(input);
+	return number;
+}
+
+void alteritem(list<agendaitem>* agendaitems, int index){
+	list<agendaitem>::iterator it = agendaitems->begin();
+	advance(it, index-1);
+	cout<<"Type the number of the data you want to alter. Type exit to exit.\n";
+	cout<<"1.title: " << it->returntitle() << endl;
+	cout<<"2.begindate: " << it->returnbegindate() << endl;
+	cout<<"3.enddate: " << it->returnenddate() << endl;
+	cout<<"4.description: " << it->returndescription() << endl;
+	cout<<"5.location:  " << it->returnlocation() << endl;
+
+	string input = "";
+	int number = 0;
+
+startlabel:
+	
+	getline(cin, input);
+	if(input == "exit")
+		return;
+	
+	while(!stringtoint(input, number)){
+		cout<<"Input is not an integer.\n";
+		cout<<"Type the number of the data you want to alter. Type exit to exit.\n";
+		getline(cin, input);
+		if(input == "exit")
+			return;
+
+	}
+	if(number>5||number<1){
+		cout<<"Wrong number\n";
+		goto startlabel;
+	}
+
+	switch(number){
+		case 1:
+			it->settitle();
+			break;
+		case 2:
+			it->setbegindate();
+			break;
+		case 3:
+			it->setenddate();
+			break;
+		case 4:
+			it->setdescription();
+			break;
+		case 5:
+			it->setlocation();
+			break;
+		default:
+			cout<<"I do not know how but the number is wrong. Please try again!\n";
+			goto startlabel;
+	}
+
 }
 
 //manage the current items in the list
@@ -18,7 +86,31 @@ void manageitems(list<agendaitem>* agendaitems, int itemsadded){
 		cout<<itemn<<". "<<it->returntitle()<<endl;
 		itemn++;
 	}
-	cout<<"Which event do you want to alter?\n";
+
+	string input;
+	int number = 0;
+
+startlabel2:
+	cout<<"Type the number of the event you want to alter. Type exit to exit.\n";
+	
+	getline(cin, input);
+	if(input == "exit")
+		return;
+	
+	while(!stringtoint(input, number)){
+		cout<<"Input is not an integer.\n";
+		cout<<"Type the number of the event you want to alter. Type exit to exit.\n";
+		cin.ignore();
+		getline(cin, input);
+		if(input == "exit")
+			return;
+	}
+	if(number>itemsadded||number<itemsadded){
+		cout<<"Wrong number\n";
+		goto startlabel2;
+	}
+	cout<<"alteritem\n";
+	alteritem(agendaitems, number);
 
 }
 
@@ -45,7 +137,7 @@ beginlabel:
 
 		//allow user to manage the events
 		cout<<"Do you want to manage the events? (delete or change events)\n";
-		if( tolower(getyn()) != 'y' ){
+		if( tolower(getyn()) == 'y' ){
 			manageitems(&agendaitems, itemsadded);
 		}
 
@@ -60,14 +152,13 @@ beginlabel:
 
 	//allow user to manage the items before making the final ical file.
 	cout<<"Do you want to manage the events?(y/n) (delete or change events)\n";
-	if( tolower(getyn()) != 'y' ){
+	if( tolower(getyn()) == 'y' ){
 		manageitems(&agendaitems, itemsadded);
 	}
 
 	cout<<"Your items will now be turned into an ical file please stand by.\n";
 	//iterate over all items and add them to the file
 	for(list<agendaitem>::iterator it=agendaitems.begin(); it != agendaitems.end(); it++){
-		cout<<"loop\n";
 		it->addtofile(file);
 	}
 	
@@ -87,8 +178,7 @@ int main ( ){
 		<<"please enter the filename below (no spaces and no extension)"<<endl;
 	
 	
-
-	cin>>filename;
+	getline(std::cin, filename);
 
 	filename.append(".ics");
 	

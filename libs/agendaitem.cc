@@ -20,7 +20,6 @@ void agendaitem::fillitem( ){
 }
 
 void agendaitem::addtofile( std::ofstream* file ){
-	std::cout<<"we sure are adding now!\n";
 	time_t rawtime;
 	tm* localtm;
 
@@ -32,8 +31,8 @@ void agendaitem::addtofile( std::ofstream* file ){
 	std::string time = asctime(localtm);
 	
 	time = removespaces(time);
-	
-	*file<<"UID:"<<time<<"@thomassawesomeicalcreator.com\r\n"
+	int rand = std::rand();
+	*file<<"UID:"<<std::to_string(rand)<<time<<"@thomassawesomeicalcreator.com\r\n"
 		<<"DTSTAMP:"<<getDTSTAMP(localtm)<<"\r\n";
 
 	*file<<"DTSTART:"<<begindate<<"\r\n";
@@ -60,7 +59,7 @@ std::string agendaitem::returnenddate(){
 	return enddate;
 }
 
-std::string agendaitem::returdescription(){
+std::string agendaitem::returndescription(){
 	return description;
 }
 
@@ -72,7 +71,7 @@ std::string agendaitem::returnlocation(){
 void agendaitem::setbegindate( ){
 begindatelabel:
 	std::cout<<"When will the event begin? (yyyymmdd:hhmm)\n";
-	std::cin>>begindate;
+	std::getline(std::cin, begindate);
 	if (begindate.size()!=13){
 		std::cout<<"date is wrong format.\n";
 		goto begindatelabel;
@@ -83,7 +82,7 @@ begindatelabel:
 void agendaitem::setenddate( ){
 enddatelabel:
 	std::cout<<"When will the event end? (yyyymmdd:hhmm)\n";
-	std::cin>>enddate;
+	std::getline(std::cin, enddate);
 	if (enddate.size()!=13){
 		std::cout<<"date is wrong format.\n";
 		goto enddatelabel;
@@ -93,14 +92,12 @@ enddatelabel:
 
 void agendaitem::settitle( ){
 	std::cout<<"What is the name of the event?\n";
-	std::cin.ignore();
 	std::getline(std::cin, title);
 }
 
 void agendaitem::setdescription( ){
 	std::cout<<"What is the description of the event? " 
 			<<"(leave blank for no location (press enter twice))\n";
-	std::cin.ignore();
 	std::getline(std::cin, description);
 	if( description == "")
 		hasdescription = false;
@@ -109,7 +106,6 @@ void agendaitem::setdescription( ){
 void agendaitem::setlocation( ){
 	std::cout<<"What is the location of the event? " 
 		<<"(leave blank for no location (press enter twice))\n";
-	std::cin.ignore();
 	std::getline(std::cin, location);
 	if( location == "")
 		haslocation = false;

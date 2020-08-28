@@ -5,6 +5,7 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 
 class agendaitem{
 	//vars
@@ -31,7 +32,7 @@ class agendaitem{
 		//returns the enddate of the event
 		std::string returnenddate();
 		//returns the description of the event
-		std::string returdescription();
+		std::string returndescription();
 		//returns the location of the event
 		std::string returnlocation();
 		//allows the user to set the begin date of the event
