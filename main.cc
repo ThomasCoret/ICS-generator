@@ -10,7 +10,15 @@ char getyn(){
 }
 
 //manage the current items in the list
-void manageitems(list<agendaitem>* agendaitems){
+void manageitems(list<agendaitem>* agendaitems, int itemsadded){
+	cout<<"you currently have "<<itemsadded<<" events added. \n";
+	int itemn = 1;
+	//show all added items to the user by title and number added.
+	for(list<agendaitem>::iterator it= agendaitems->begin(); it != agendaitems->end(); it++){
+		cout<<itemn<<". "<<it->returntitle()<<endl;
+		itemn++;
+	}
+	cout<<"Which event do you want to alter?\n";
 
 }
 
@@ -38,7 +46,7 @@ beginlabel:
 		//allow user to manage the events
 		cout<<"Do you want to manage the events? (delete or change events)\n";
 		if( tolower(getyn()) != 'y' ){
-			manageitems(&agendaitems);
+			manageitems(&agendaitems, itemsadded);
 		}
 
 	}
@@ -53,7 +61,7 @@ beginlabel:
 	//allow user to manage the items before making the final ical file.
 	cout<<"Do you want to manage the events?(y/n) (delete or change events)\n";
 	if( tolower(getyn()) != 'y' ){
-		manageitems(&agendaitems);
+		manageitems(&agendaitems, itemsadded);
 	}
 
 	cout<<"Your items will now be turned into an ical file please stand by.\n";
@@ -81,7 +89,7 @@ int main ( ){
 	
 
 	cin>>filename;
-	
+
 	filename.append(".ics");
 	
 	ofstream file(filename.c_str());

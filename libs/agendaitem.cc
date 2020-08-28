@@ -48,6 +48,27 @@ void agendaitem::addtofile( std::ofstream* file ){
 	*file<<"END:VEVENT\r\n";
 }
 
+std::string agendaitem::returntitle(){
+	return title;
+}
+
+std::string agendaitem::returnbegindate(){
+	return begindate;
+}
+
+std::string agendaitem::returnenddate(){
+	return enddate;
+}
+
+std::string agendaitem::returdescription(){
+	return description;
+}
+
+std::string agendaitem::returnlocation(){
+	return location;
+}
+	
+
 void agendaitem::setbegindate( ){
 begindatelabel:
 	std::cout<<"When will the event begin? (yyyymmdd:hhmm)\n";

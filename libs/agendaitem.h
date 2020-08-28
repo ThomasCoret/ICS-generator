@@ -24,8 +24,16 @@ class agendaitem{
 		void fillitem( );
 		//add the current item to the ical file
 		void addtofile( std::ofstream* );
-		
-	private:
+		//returns the title of the event
+		std::string returntitle();
+		//returns the begindate of the event
+		std::string returnbegindate();
+		//returns the enddate of the event
+		std::string returnenddate();
+		//returns the description of the event
+		std::string returdescription();
+		//returns the location of the event
+		std::string returnlocation();
 		//allows the user to set the begin date of the event
 		void setbegindate( );
 		//allows the user to set the end date of the event
@@ -36,6 +44,9 @@ class agendaitem{
 		void setdescription( );
 		//allows the user to set the location of the event
 		void setlocation( );
+
+		
+	private:
 		//removes the spaces from a string
 		std::string removespaces( std::string );
 		//creates a DTSTART out of the given date (also works for DTEND) 
